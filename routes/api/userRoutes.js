@@ -15,4 +15,4 @@ router
     .put(updateUser)
     .delete(deleteUser);
 
-moduler.exports = router;
+module.exports = router;
