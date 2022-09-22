@@ -9,7 +9,7 @@ const reactionSchema = new Schema(
         reactionBody: {
             type: String,
             required: true,
-            // 280 character maximum
+            maxlenght: 280,
         },
         username: {
             type: String,
@@ -17,9 +17,16 @@ const reactionSchema = new Schema(
         },
         createdAt: {
             type: Date,
+            default: Date.now,
             // Set default value to the current timestamp
             // Use a getter method to format the timestamp on query
         }
+    },
+    {
+        toJSON: {
+            getters: true,
+        },
+        id: false,
     }
 );
 
