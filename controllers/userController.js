@@ -3,11 +3,15 @@ const { User, Thought } = require('../models');
 module.exports = {
     getUsers(req, res) {
         User.find()
+            // .populate("thoughts")
+            // .populate("friends")
             .then((users) => res.json(users))
-            .catch((err) => res.status(500).json(err));
+            .catch((err) => {console.log(err) ;
+                    res.status(500).json(err)});
+
     },
     getSingleUser(req, res) {
-        User.findOne({_id: requestAnimationFrame.params.userId})
+        User.findOne({_id: req.params.userId})
             .select('-__v')
             .then((user) => 
             !user
@@ -19,7 +23,7 @@ module.exports = {
     createUser(req, res) {
         User.create(req.body)
             .then((user) => res.json(user))
-            .cath((err) => {
+            .catch((err) => {
                 console.log(err);
                 return res.status(500).json(err);
             });
@@ -47,4 +51,9 @@ module.exports = {
         )
         .catch((err) => res.status(500).json(err));
     },
+    //   // add friend
+    // addFriend(req, res) {
+    //     User.create
+    // }
+  
 };

@@ -18,8 +18,14 @@ module.exports = {
     },
     createThought(req, res) {
         Thought.create(req.body)
-            .then((thought) => res.json(thought))
-            .cath((err) => {
+            .then((thought) => {
+                User.findOneAndUpdate(
+                { _id: req.params.userId },
+                { $push: {thoughts: thought.id}}
+                )
+                res.json(thought)
+            } )
+            .catch((err) => {
                 console.log(err);
                 return res.status(500).json(err);
             });
@@ -47,4 +53,12 @@ module.exports = {
         )
         .catch((err) => res.status(500).json(err));
     },
+     //add reactions
+    addReaction(req, res) {
+        User.create
+    }
+
+   
+
+    
 };
